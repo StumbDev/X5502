@@ -57,6 +57,24 @@ apu.HALT();                 // Halt the program
 // Output result stored in the APU's buffer
 console.log('Final Output:', apu.getOutput());
 ```
+## Building a modded version or a new apu using this code base
+1 - first install the dependencies
+```bash
+# using npm
+npm i
+# using yarn
+yarn install # or only yarn
+```
+2 - now modify the gulpfile.js for using other name
+
+3 - then run:
+```bash
+# using npm
+npx gulp
+# using yarn
+yarn run gulp
+```
+The compiled executables will be in the `dist` directory
 
 ## License
 Boost software license 1.0
