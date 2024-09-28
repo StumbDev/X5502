@@ -38,7 +38,7 @@ Program ended
 ## JsLib example usage
 ```javascript
 // Import the jslib (X5502APU) module
-const X5502APU = require('./jslib');
+const X5502APU = require('x5502/jslib');
 
 // Create an instance of the X5502 APU
 const apu = new X5502APU();
