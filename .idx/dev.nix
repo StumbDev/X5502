@@ -20,6 +20,7 @@
     pkgs.wine64
     pkgs.wine
     pkgs.ldid
+    pkgs.powershell
   ];
 
   # Sets environment variables in the workspace
