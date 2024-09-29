@@ -12,8 +12,11 @@
     pkgs.nodejs_20
     # pkgs.nodePackages.nodemon
     pkgs.bun
+    pkgs.yarn
     pkgs.deno
     pkgs.nasm
+    pkgs.yarn2nix
+    pkgs.dart
   ];
 
   # Sets environment variables in the workspace
@@ -21,9 +24,14 @@
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
-     # "vscodevim.vim"
       "gengjiawen.vscode-wasm"
       "ms-vscode.wasm-wasi-core"
+      "Dart-Code.dart-code"
+      "Dart-Code.flutter"
+      "astro-build.astro-vscode"
+      "mattpocock.ts-error-translator"
+      "YoavBls.pretty-ts-errors"
+      "YuTengjing.package-manager-enhancer"
     ];
 
     # Enable previews

@@ -1,5 +1,6 @@
 const path = require('path');
 const { build } = require('esbuild');
+path.resolve(__dirname, '../vhard/pins.dart')
 
 const entryPoints = [
   path.resolve(__dirname, '../assembly.ts'),
