@@ -4,7 +4,9 @@
   "description": "The first APU systen",
   "main": "src/index.js",
   "scripts": {
-    "test": "node . --test num=1"
+    "test": "node . --test num=1",
+    "build:bin": "gulp && pkg ./dist/index.js",
+    "build:comp": "gulp"
   },
   "author": "Miguel V.",
   "license": "ISC",
@@ -18,6 +20,7 @@
     "gulp-coffee": "^3.0.3",
     "gulp-exec": "^5.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "pkg": "^5.8.1",
     "readline-sync": "^1.4.10",
     "shelljs": "^0.8.5",
     "toml": "^3.0.0",
@@ -33,7 +36,6 @@
       "node16-win-x86",
       "node16-linux-x64",
       "node16-linux-arm64",
-      "node16-linux-armv7",
       "node16-macos-x64",
       "node16-macos-arm64"
     ],

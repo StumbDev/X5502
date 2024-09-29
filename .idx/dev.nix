@@ -17,6 +17,9 @@
     pkgs.nasm
     pkgs.yarn2nix
     pkgs.dart
+    pkgs.wine64
+    pkgs.wine
+    pkgs.ld
   ];
 
   # Sets environment variables in the workspace
