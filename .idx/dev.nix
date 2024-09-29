@@ -19,7 +19,7 @@
     pkgs.dart
     pkgs.wine64
     pkgs.wine
-    pkgs.ld
+    pkgs.ldid
   ];
 
   # Sets environment variables in the workspace
