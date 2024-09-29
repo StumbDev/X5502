@@ -13,6 +13,7 @@
     # pkgs.nodePackages.nodemon
     pkgs.bun
     pkgs.deno
+    pkgs.nasm
   ];
 
   # Sets environment variables in the workspace
@@ -20,7 +21,7 @@
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
-      "vscodevim.vim"
+     # "vscodevim.vim"
       "gengjiawen.vscode-wasm"
       "ms-vscode.wasm-wasi-core"
     ];

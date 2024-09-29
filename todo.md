@@ -1,0 +1,4 @@
+- [ ] <span style="color:green;">Add support for virtual pin support</span>
+- [ ] <span style="color:blue;">Add SuperCompute module + support SuperCompute</span>
+- [ ] <span style="color:orange;">Support virtual components as variables</span>
+- [ ] <span style="color:red;">Make a custom assembly language for APUs</span>
