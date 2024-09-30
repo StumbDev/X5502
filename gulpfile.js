@@ -1,75 +1,56 @@
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
-const coffee = require('gulp-coffee');
-const { exec } = require('child_process');
+const sourcemaps = require('gulp-sourcemaps');
+const exec = require('gulp-exec');
+const path = require('path');
 
-// Compile TypeScript
-gulp.task('typescript', function () {
-  return gulp.src('src/**/*.ts')
-    .pipe(ts({ noImplicitAny: true }))
-    .pipe(gulp.dest('dist'));
-});
+// Create a TypeScript project using tsconfig.json
+const tsProject = ts.createProject('tsconfig.json');
 
-// Compile CoffeeScript
-gulp.task('coffee', function () {
-  return gulp.src('src/**/*.coffee')
-    .pipe(coffee({ bare: true }))
-    .pipe(gulp.dest('dist'));
-});
-
-// Helper function to run pkg with different targets
-function buildExecutable(target, output, done) {
-  exec(`pkg . --targets ${target} --output executables/${output}`, function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    done(err);
-  });
-}
-
-// Windows builds
-gulp.task('pkg-windows-x64', function (done) {
-  buildExecutable('node16-win-x64', 'x5502-win-x64.exe', done);
-});
-gulp.task('pkg-windows-arm64', function (done) {
-  buildExecutable('node16-win-arm64', 'x5502-win-arm64.exe', done);
-});
-gulp.task('pkg-windows-x86', function (done) {
-  buildExecutable('node16-win-x86', 'x5502-win-x86.exe', done);
+// Task to compile TypeScript files
+gulp.task('compile-ts', function () {
+    return tsProject
+        .src()
+        .pipe(sourcemaps.init())
+        .pipe(tsProject())
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('dist'));
 });
 
-// Linux builds
-gulp.task('pkg-linux-x64', function (done) {
-  buildExecutable('node16-linux-x64', 'x5502-linux-x64', done);
-});
-gulp.task('pkg-linux-arm64', function (done) {
-  buildExecutable('node16-linux-arm64', 'x5502-linux-arm64', done);
-});
-gulp.task('pkg-linux-armv7', function (done) {
-  buildExecutable('node16-linux-armv7', 'x5502-linux-armv7', done);
+// Task to copy package.json to dist directory
+gulp.task('copy-package-json', function () {
+    return gulp.src('package.json')
+        .pipe(gulp.dest('dist'));
 });
 
-// MacOS builds
-gulp.task('pkg-mac-x64', function (done) {
-  buildExecutable('node16-macos-x64', 'x5502-macos-x64', done);
-});
-gulp.task('pkg-mac-arm64', function (done) {
-  buildExecutable('node16-macos-arm64', 'x5502-macos-arm64', done);
+// Task to install dependencies in the dist directory
+gulp.task('install-deps', function (done) {
+    gulp.src('dist/package.json') // Target package.json in the dist directory
+        .pipe(exec('npm install --production', {
+            cwd: path.join(__dirname, 'dist')  // Change the working directory to the dist folder
+        }))
+        .pipe(exec.reporter());
+    done();
 });
 
-// Task to create executables for all platforms and architectures
-gulp.task('pkg-all', gulp.series(
-  // Windows
-  'pkg-windows-x64',
-  'pkg-windows-arm64',
-  'pkg-windows-x86',
-  // Linux
-  'pkg-linux-x64',
-  'pkg-linux-arm64',
-  'pkg-linux-armv7',
-  // MacOS
-  'pkg-mac-x64',
-  'pkg-mac-arm64'
-));
+// Task to create binaries using pkg
+gulp.task('pkg', function (done) {
+    const options = {
+        continueOnError: false,
+        pipeStdout: false,
+    };
 
-// Default task: compile and build executables for all architectures
-gulp.task('default', gulp.series('typescript', 'coffee', 'pkg-all'));
+    gulp.src('./dist/index.js')  // Point to the main output JS file
+        .pipe(exec('pkg ./dist/index.js --out-path ./bin -t node16-linux-x64,node16-win-x64,node16-mac-x64,node16-mac-arm64,node16-win-arm64,node16-linux-arm64', options))
+        .pipe(exec.reporter());
+
+    done();
+});
+
+// Watch for changes in TypeScript files
+gulp.task('watch', function () {
+    gulp.watch('src/**/*.ts', gulp.series('compile-ts', 'pkg'));
+});
+
+// Default task (runs when you execute `gulp`)
+gulp.task('default', gulp.series('compile-ts', 'copy-package-json', 'install-deps', 'pkg', 'watch'));

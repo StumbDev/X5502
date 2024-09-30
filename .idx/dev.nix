@@ -6,21 +6,21 @@
 
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    # pkgs.go
+    #pkgs.go
+    
     # pkgs.python311
     # pkgs.python311Packages.pip
-    pkgs.nodejs_20
     # pkgs.nodePackages.nodemon
-    pkgs.bun
-    pkgs.yarn
-    pkgs.deno
-    pkgs.nasm
-    pkgs.yarn2nix
-    pkgs.dart
-    pkgs.wine64
-    pkgs.wine
-    pkgs.ldid
     pkgs.powershell
+    pkgs.lua
+    pkgs.rustc
+    pkgs.rustcat
+    pkgs.github-cli
+    pkgs.github-release
+    pkgs.rustup
+    pkgs.perl
+    pkgs.perlnavigator
+    pkgs.nodejs
   ];
 
   # Sets environment variables in the workspace
@@ -30,12 +30,22 @@
     extensions = [
       "gengjiawen.vscode-wasm"
       "ms-vscode.wasm-wasi-core"
-      "Dart-Code.dart-code"
-      "Dart-Code.flutter"
       "astro-build.astro-vscode"
       "mattpocock.ts-error-translator"
       "YoavBls.pretty-ts-errors"
       "YuTengjing.package-manager-enhancer"
+      "JohnnyMorganz.luau-lsp"
+      "sumneko.lua"
+      "tomblind.local-lua-debugger-vscode"
+      "golang.go"
+      "rust-lang.rust"
+      "bscan.perlnavigator"
+      "jorol.perl-completions"
+      "richterger.perl"
+      "solomonkinard.git-tabs"
+      "castrogusttavo.symbols"
+      "PKief.material-icon-theme"
+      "PKief.material-product-icons"
     ];
 
     # Enable previews

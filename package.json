@@ -1,48 +1,41 @@
 {
-  "name": "x5502",
-  "version": "0.2.5502",
-  "description": "The first APU systen",
-  "main": "src/index.js",
+  "name": "x5501assembler",
+  "version": "2.5501.20240930",
+  "description": "The X5501 Assembler",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "node . --test num=1",
-    "build:bin": "gulp && pkg ./dist/index.js",
-    "build:comp": "gulp"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:dist": "gulp"
   },
+  "keywords": [
+    "apu",
+    "cpu",
+    "5502",
+    "5501"
+  ],
   "author": "Miguel V.",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "assemblyscript": "^0.27.30",
+    "@types/commander": "^2.12.2",
+    "@types/node": "^22.7.4",
     "chalk": "^5.3.0",
-    "coffeescript": "^2.7.0",
     "commander": "^12.1.0",
     "gulp": "^5.0.0",
     "gulp-cli": "^3.0.0",
-    "gulp-coffee": "^3.0.3",
     "gulp-exec": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "pkg": "^5.8.1",
-    "readline-sync": "^1.4.10",
     "shelljs": "^0.8.5",
-    "toml": "^3.0.0",
-    "typescript": "^5.6.2",
-    "voilascript": "^0.2.13-vyne2voila",
-    "wabt": "^1.0.36"
+    "typescript": "^5.6.2"
   },
   "pkg": {
-    "assets": [],
+    "scripts": "dist/index.js",
     "targets": [
-      "node16-win-x64",
-      "node16-win-arm64",
-      "node16-win-x86",
       "node16-linux-x64",
-      "node16-linux-arm64",
+      "node16-win-x64",
       "node16-macos-x64",
       "node16-macos-arm64"
-    ],
-    "outputPath": "executables"
-  },
-  "devDependencies": {
-    "@types/node": "^22.7.4",
-    "@types/readline-sync": "^1.4.8"
+    ]
   }
 }
