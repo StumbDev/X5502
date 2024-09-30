@@ -3,11 +3,15 @@ const ts = require('gulp-typescript');
 const sourcemaps = require('gulp-sourcemaps');
 const exec = require('gulp-exec');
 const path = require('path');
+const babel = require('gulp-babel');
 
 // Create a TypeScript project using tsconfig.json
 const tsProject = ts.createProject('tsconfig.json');
 
 // Task to compile TypeScript files
+
+
+
 gulp.task('compile-ts', function () {
     return tsProject
         .src()
@@ -52,5 +56,10 @@ gulp.task('watch', function () {
     gulp.watch('src/**/*.ts', gulp.series('compile-ts', 'pkg'));
 });
 
+gulp.task('babel', function () {
+    return gulp.src('dist/**/*.js') // Adjust the path as necessary
+        .pipe(babel())
+        .pipe(gulp.dest('dist'));
+});
 // Default task (runs when you execute `gulp`)
-gulp.task('default', gulp.series('compile-ts', 'copy-package-json', 'install-deps', 'pkg', 'watch'));
+gulp.task('default', gulp.series('compile-ts', 'copy-package-json', 'install-deps', 'pkg', 'babel', 'watch'));
